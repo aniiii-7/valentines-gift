@@ -13,17 +13,17 @@ background-image: url('bg.jpg');
 background-size: cover;
 background-position: center;
 background-attachment: fixed;
-overflow-x: hidden;
 font-family:'Quicksand', Arial;
 color:white;
+overflow-x:hidden;
 }
 
 /* SCREENS */
 
 .screen{
-position:fixed;
+position:absolute;
 width:100%;
-height:100vh;
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -31,6 +31,7 @@ flex-direction:column;
 opacity:0;
 pointer-events:none;
 transition:1.2s;
+padding:40px 0;
 }
 
 .show{
@@ -90,6 +91,7 @@ opacity:0;
 .container{
 padding:26px;
 text-align:center;
+max-width:700px;
 }
 
 h1{
@@ -114,15 +116,6 @@ border-radius:18px;
 margin-top:15px;
 }
 
-/* LOADING TYPE */
-
-#typeBox{
-font-family:'Pacifico';
-font-size:32px;
-text-align:center;
-padding:20px;
-}
-
 /* LOVE LIST */
 
 .loveContainer {
@@ -134,16 +127,12 @@ border: 2px solid rgba(255,255,255,0.3);
 }
 
 .loveHeading{
-font-family:'Comic Sans MS', cursive;
 font-weight:bold;
 font-size:28px;
-letter-spacing:1px;
 margin-bottom:20px;
-text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .loveItem{
-font-family:'Quicksand';
 font-size:20px;
 margin:15px 0;
 opacity:0;
@@ -164,72 +153,21 @@ margin-right: 10px;
 display: flex;
 flex-direction: column;
 align-items: center;
-position: relative;
 }
 
 .vinyl-gif {
-width: 250px;
-height: 250px;
-border-radius: 50%;
-object-fit: cover;
+width: 260px;
+height:auto;   /* IMPORTANT: shows full gif */
 margin-bottom: 20px;
 box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
-.record{
-width:200px;
-height:200px;
-border-radius:50%;
-background:black;
-animation:spin 4s linear infinite;
-display:none;
-}
-
-@keyframes spin{
-from{transform:rotate(0)}
-to{transform:rotate(360deg)}
-}
-
 .bows{
-background-image:radial-gradient(white 2px, transparent 2px);
-background-size:28px 28px;
 padding:22px;
 border-radius:22px;
 margin-top:30px;
 font-family:'Great Vibes';
 font-size:32px;
-text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Floating hearts and tulips */
-.floating-bg {
-position: fixed;
-width: 100%;
-height: 100vh;
-top: 0;
-left: 0;
-pointer-events: none;
-z-index: -1;
-}
-
-.float-item {
-position: absolute;
-opacity: 0.6;
-animation: float 6s infinite;
-}
-
-@keyframes float {
-0%, 100% {
-transform: translateY(0) translateX(0);
-opacity: 0;
-}
-50% {
-opacity: 0.6;
-}
-100% {
-transform: translateY(-100vh) translateX(50px);
-opacity: 0;
-}
 }
 
 </style>
@@ -237,13 +175,11 @@ opacity: 0;
 
 <body>
 
-<div class="floating-bg" id="floatingBg"></div>
-
 <!-- SCREEN 1 -->
 
 <div class="screen show" id="s1">
 <div class="card">
-<img src="photo1.jpg" width="100%">
+<img src="photo1.jpg">
 <h2>Will you be my valentine 🫢🌷</h2>
 
 <button onclick="wrong()">No</button>
@@ -251,30 +187,27 @@ opacity: 0;
 </div>
 </div>
 
-
 <!-- WRONG -->
 
 <div class="screen" id="wrong">
 <div class="card">
-<img src="photo2.jpg" width="100%">
+<img src="photo2.jpg">
 <h2>wrong answer baby 🫵🏻😛</h2>
 <button onclick="back()">Try Again</button>
 </div>
 </div>
 
-
 <!-- SCREEN 2 -->
 
 <div class="screen" id="s2">
 <div class="card">
-<img src="photo3.jpg" width="100%">
+<img src="photo3.jpg">
 <h2>omg really??? 🙀</h2>
 
 <button onclick="wrong()">No</button>
 <button onclick="yes2()">Yes</button>
 </div>
 </div>
-
 
 <!-- LETTER -->
 
@@ -287,13 +220,9 @@ opacity: 0;
 <img src="photo4.jpg">
 
 <div class="letter">
-
 Happy valentine's day baby... I don't think that i say this enough but you make my life happier just by being in it Whether we're talking for hours or just playing random games every moment with you means more than you probably realize and somehow you've become my fav part of every day I'm really lucky to have you and I js hope this is just one of many Valentine's Days we get to celebrate together.
-
 <br><br>
-
-Even tho we don't get to spend time together irl i js hope these few months passes soon and we finally get to spend more time together in real life and not just calls and texts (aapci gan maarlugi irl milke toh 😛🫶🏻)
-
+Even tho we don't get to spend time together irl i js hope these few months passes soon and we finally get to spend more time together in real life and not just calls and texts.
 </div>
 
 <button onclick="loading()">Next ❤️</button>
@@ -301,13 +230,11 @@ Even tho we don't get to spend time together irl i js hope these few months pass
 </div>
 </div>
 
-
-<!-- LOADING / TYPE -->
+<!-- LOADING -->
 
 <div class="screen" id="loading">
-<div id="typeBox">Generating reasons why I adore you…</div>
+<div style="font-size:32px;font-family:'Pacifico';">Generating reasons why I adore you…</div>
 </div>
-
 
 <!-- LOVE LIST -->
 
@@ -325,21 +252,18 @@ Things I Love About You 🫶🏻
 
 </div>
 
-
 <!-- VINYL -->
 
 <div class="screen" id="vinyl">
 
 <div class="vinylContainer">
-<img src="vinyl.gif" class="vinyl-gif" alt="vinyl">
-
+<img src="vinyl.gif" class="vinyl-gif">
 <div class="bows">
 now you're stuck with me.
 </div>
 </div>
 
 </div>
-
 
 <audio id="cupid" loop>
 <source src="cupid.mp3">
@@ -370,12 +294,18 @@ const reasons=[
 let cupid=document.getElementById("cupid");
 let wanna=document.getElementById("wanna");
 
-cupid.volume=0.35;
-cupid.play();
+/* Unlock audio after first tap */
+document.body.addEventListener("click", () => {
+    cupid.volume = 0.35;
+    cupid.play().catch(()=>{});
+}, { once:true });
 
 function switchScreen(id){
 document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
-setTimeout(()=>document.getElementById(id).classList.add("show"),200);
+setTimeout(()=>{
+window.scrollTo(0,0);
+document.getElementById(id).classList.add("show");
+},200);
 }
 
 function wrong(){ switchScreen("wrong"); }
@@ -391,16 +321,19 @@ function yes2(){
 storm(300);
 
 setTimeout(()=>{
+
 cupid.pause();
+cupid.currentTime = 0;
+
+setTimeout(()=>{
 wanna.volume=0.5;
-wanna.play();
+wanna.play().catch(()=>{});
+},200);
 
 switchScreen("letter");
-document.body.style.overflow="auto";
 
 },1400);
 }
-
 
 /* HEART STORM */
 
@@ -421,16 +354,12 @@ setTimeout(()=>el.remove(),7000);
 }
 }
 
-
 /* LOADING */
 
 function loading(){
-
 switchScreen("loading");
-
 setTimeout(showLove,2000);
 }
-
 
 /* LOVE TYPE */
 
@@ -450,17 +379,9 @@ container.appendChild(div);
 
 setTimeout(()=>div.style.opacity=1,100);
 
-let delay=900;
-
-if(reasons[i]==="Your face") delay=1500;
-if(reasons[i]==="I love you") delay=1600;
-if(reasons[i]==="I love all of you") delay=2800;
-
-await new Promise(r=>setTimeout(r,delay));
+await new Promise(r=>setTimeout(r,900));
 }
-
 }
-
 
 function vinyl(){
 switchScreen("vinyl");
