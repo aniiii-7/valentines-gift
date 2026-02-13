@@ -196,5 +196,277 @@ background-size:28px 28px;
 padding:22px;
 border-radius:22px;
 margin-top:30px;
-font*
-
+font-family:'Great Vibes';
+font-size:32px;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Floating hearts and tulips */
+.floating-bg {
+position: fixed;
+width: 100%;
+height: 100vh;
+top: 0;
+left: 0;
+pointer-events: none;
+z-index: -1;
+}
+
+.float-item {
+position: absolute;
+opacity: 0.6;
+animation: float 6s infinite;
+}
+
+@keyframes float {
+0%, 100% {
+transform: translateY(0) translateX(0);
+opacity: 0;
+}
+50% {
+opacity: 0.6;
+}
+100% {
+transform: translateY(-100vh) translateX(50px);
+opacity: 0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="floating-bg" id="floatingBg"></div>
+
+<!-- SCREEN 1 -->
+
+<div class="screen show" id="s1">
+<div class="card">
+<img src="photo1.jpg" width="100%">
+<h2>Will you be my valentine 🫢🌷</h2>
+
+<button onclick="wrong()">No</button>
+<button onclick="yes1()">Yes</button>
+</div>
+</div>
+
+
+<!-- WRONG -->
+
+<div class="screen" id="wrong">
+<div class="card">
+<img src="photo2.jpg" width="100%">
+<h2>wrong answer baby 🫵🏻😛</h2>
+<button onclick="back()">Try Again</button>
+</div>
+</div>
+
+
+<!-- SCREEN 2 -->
+
+<div class="screen" id="s2">
+<div class="card">
+<img src="photo3.jpg" width="100%">
+<h2>omg really??? 🙀</h2>
+
+<button onclick="wrong()">No</button>
+<button onclick="yes2()">Yes</button>
+</div>
+</div>
+
+
+<!-- LETTER -->
+
+<div class="screen" id="letter">
+
+<div class="container">
+
+<h1>Happy valentine's day dudu 🫶🏻</h1>
+
+<img src="photo4.jpg">
+
+<div class="letter">
+
+Happy valentine's day baby... I don't think that i say this enough but you make my life happier just by being in it Whether we're talking for hours or just playing random games every moment with you means more than you probably realize and somehow you've become my fav part of every day I'm really lucky to have you and I js hope this is just one of many Valentine's Days we get to celebrate together.
+
+<br><br>
+
+Even tho we don't get to spend time together irl i js hope these few months passes soon and we finally get to spend more time together in real life and not just calls and texts (aapci gan maarlugi irl milke toh 😛🫶🏻)
+
+</div>
+
+<button onclick="loading()">Next ❤️</button>
+
+</div>
+</div>
+
+
+<!-- LOADING / TYPE -->
+
+<div class="screen" id="loading">
+<div id="typeBox">Generating reasons why I adore you…</div>
+</div>
+
+
+<!-- LOVE LIST -->
+
+<div class="screen" id="love">
+
+<div class="loveContainer">
+<div class="loveHeading">
+Things I Love About You 🫶🏻
+</div>
+
+<div id="loveContainer"></div>
+
+<button onclick="vinyl()" style="margin-top:20px;">Continue</button>
+</div>
+
+</div>
+
+
+<!-- VINYL -->
+
+<div class="screen" id="vinyl">
+
+<div class="vinylContainer">
+<img src="vinyl.gif" class="vinyl-gif" alt="vinyl">
+
+<div class="bows">
+now you're stuck with me.
+</div>
+</div>
+
+</div>
+
+
+<audio id="cupid" loop>
+<source src="cupid.mp3">
+</audio>
+
+<audio id="wanna">
+<source src="wanna.mp3">
+</audio>
+
+
+<script>
+
+const reasons=[
+"Your smile",
+"Your eyes",
+"Your hair",
+"The way you make me laugh",
+"Your jokes",
+"Your hands",
+"Your smartness",
+"Your comfort",
+"The things you say",
+"Your face",
+"I love you",
+"I love all of you"
+];
+
+let cupid=document.getElementById("cupid");
+let wanna=document.getElementById("wanna");
+
+cupid.volume=0.35;
+cupid.play();
+
+function switchScreen(id){
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("show"));
+setTimeout(()=>document.getElementById(id).classList.add("show"),200);
+}
+
+function wrong(){ switchScreen("wrong"); }
+function back(){ switchScreen("s1"); }
+
+function yes1(){
+storm(120);
+switchScreen("s2");
+}
+
+function yes2(){
+
+storm(300);
+
+setTimeout(()=>{
+cupid.pause();
+wanna.volume=0.5;
+wanna.play();
+
+switchScreen("letter");
+document.body.style.overflow="auto";
+
+},1400);
+}
+
+
+/* HEART STORM */
+
+function storm(count){
+
+for(let i=0;i<count;i++){
+
+let el=document.createElement("div");
+el.className="fall";
+el.innerHTML=Math.random()>0.5?"💗":"🌷";
+
+el.style.left=Math.random()*100+"vw";
+el.style.animationDuration=(Math.random()*3+4)+"s";
+
+document.body.appendChild(el);
+
+setTimeout(()=>el.remove(),7000);
+}
+}
+
+
+/* LOADING */
+
+function loading(){
+
+switchScreen("loading");
+
+setTimeout(showLove,2000);
+}
+
+
+/* LOVE TYPE */
+
+async function showLove(){
+
+switchScreen("love");
+
+let container=document.getElementById("loveContainer");
+
+for(let i=0;i<reasons.length;i++){
+
+let div=document.createElement("div");
+div.className="loveItem";
+div.innerText=reasons[i];
+
+container.appendChild(div);
+
+setTimeout(()=>div.style.opacity=1,100);
+
+let delay=900;
+
+if(reasons[i]==="Your face") delay=1500;
+if(reasons[i]==="I love you") delay=1600;
+if(reasons[i]==="I love all of you") delay=2800;
+
+await new Promise(r=>setTimeout(r,delay));
+}
+
+}
+
+
+function vinyl(){
+switchScreen("vinyl");
+}
+
+</script>
+
+</body>
+</html>
